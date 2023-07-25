@@ -1,5 +1,4 @@
 #include "main.h"
-#include <string.h>
 
 void prints_buffer(char buffer[], int *buff_ind);
 
@@ -14,7 +13,7 @@ void prints_buffer(char buffer[], int *buff_ind);
 int _printf(const char *format, ...)
 {
 	va_list lists;
-	int i, prints = 0, prints_char = 0;
+	int i, printed = 0, prints_char = 0;
 	int flags, width, precision, size, buff_ind = 0;
 	char buffer[BUFF_SIZE];
 
@@ -41,11 +40,17 @@ int _printf(const char *format, ...)
 			precision = gets_precision(format, &i, lists);
 			size = gets_size(format, &i);
 			i++;
-			prints = handler_prints(format, &i, lists, buffer,
+		}
+	}
+}
+
+int handle_print(const char *format,...)
+{
+			printed = handle_print(format, &i, lists, buffer,
 					flags, width, precision, size);
-			if (prints == -1)
+			if (printed == -1)
 				return (-1);
-			prints_char += prints;
+			prints_char += printed;
 		}
 	}
 	prints_buffer(buffer, &buff_ind);

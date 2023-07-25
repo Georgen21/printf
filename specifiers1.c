@@ -136,7 +136,7 @@ int prints_int(va_list types, char buffer[],
 
 	i++;
 
-	return (write_numbers(is_negative, i, bufer,
+	return (write_number(is_negative, i, buffer,
 		flags, width, precision, size));
 }
 

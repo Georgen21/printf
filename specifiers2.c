@@ -25,7 +25,16 @@ int prints_unsigned(va_list types, char buffer[], int flags, int width,
 		buffer[i--] = '0';
 
 	buffer[BUFF_SIZE - 1] = '\0';
+
+	while (num > 0)
+	{
+		buffer[i--] = (num % 10) + '0';
 	num /= 10;
+	}
+
+	i++;
+
+	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
 }
 
 /***** PRINTS OCTAL UNSIGNED NUMBERS *****/
@@ -46,7 +55,7 @@ int prints_octal(va_list types, char buffer[], int flags,
 		int width, int precision, int size)
 {
 	int i = BUFF_SIZE - 2;
-	unsigned long int number = var_arg(types, unsigned long int);
+	unsigned long int number = va_arg(types, unsigned long int);
 	unsigned long int init_num = number;
 
 	UNUSED(width);
@@ -56,7 +65,7 @@ int prints_octal(va_list types, char buffer[], int flags,
 	if (number == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFF_size - 1] = '\0';
+	buffer[BUFF_SIZE - 1] = '\0';
 
 	while (number > 0)
 	{
@@ -89,7 +98,7 @@ int prints_hexadecimal(va_list types, char buffer[], int flags,
 		int width, int precision, int size)
 {
 	return (prints_hexa(types, "0123456789abcdef", buffer, flags, 'x',
-				width precision, size));
+				width, precision, size));
 }
 
 /****** PRINTING OF UNSIGNED NUMBERS IN UPPER HEXADECIMAL FORMAT *****/
@@ -135,21 +144,21 @@ int prints_hexa(va_list types, char map_to[], char buffer[], int flags,
 {
 	int i = BUFF_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
-	unsigned long int init_num = number;
+	unsigned long int init_num = num;
 
 	UNUSED(width);
 
-	number = convert_size_unsgnd(number, size);
+	num = convert_size_unsgnd(num, size);
 
-	if (number == 0)
+	if (num == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFF_SIZE - 1] = '\0\;
+	buffer[BUFF_SIZE - 1] = '\0';
 
-	while (number > 0)
+	while (num > 0)
 	{
-		buffer[i--] = map_to[number % 16];
-		number /= 16;
+		buffer[i--] = map_to[num % 16];
+		num /= 16;
 	}
 
 	if (flags & F_HASH && init_num != 0)

@@ -36,21 +36,21 @@
 
 /**
 
- * struct fmt - Struct op
+ * struct format - Struct op
 
  *
 
- * @fmt: The format.
+ * @format: The format.
 
  * @fn: The function associated.
 
  */
 
-struct fmt
+struct format
 
 {
 
-char fmt;
+char format;
 
 int (*fn)(va_list, char[], int, int, int, int);
 
@@ -60,27 +60,23 @@ int (*fn)(va_list, char[], int, int, int, int);
 
 /**
 
- * typedef struct fmt fmt_t - Struct op
+ * typedef struct format format_t - Struct op
 
  *
 
- * @fmt: The format.
+ * @format: The format.
 
- * @fm_t: The function associated.
+ * @format_t: The function associated.
 
  */
 
-typedef struct fmt fmt_t;
+typedef struct format format_t;
 
-
-
-void prints_buffer(char buffer[], int buff_ind);
+void prints_buffer(char buffer[], int *buff_ind);
 
 int _printf(const char *format, ...);
 
-int handle_print(const char *fmt, int *i,
-
-va_list list, char buffer[], int flags, int width, int precision, int size);
+int handler_prints(const char *format, int *i, va_list lists, char buffer[], int flags, int width, int precision, int size);
 
 
 /****************** FUNCTIONS ******************/
@@ -155,7 +151,7 @@ int gets_width(const char *format, int *i, va_list list);
 
 int gets_precision(const char *format, int *i, va_list list);
 
-int gest_size(const char *format, int *i);
+int gets_size(const char *format, int *i);
 
 
 /*Function to print string in reverse*/
