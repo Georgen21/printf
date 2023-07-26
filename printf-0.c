@@ -1,69 +1,53 @@
 #include "main.h"
-#include <string.h>
-
-void prints_buffer(char buffer[], int *buff_ind);
 
 /**
- * _printf - produces output according to format.
- * @format: char to be printed
- * @...: variadic parameter
+ * _printf - it prints an output according to its format
+ * @format: it inputs a string
+ * ...: variadic params
  *
- * Return: number of printed chars.
+ * Return: the numbers of characters printed.
  */
 
 int _printf(const char *format, ...)
 {
-	va_list lists;
-	int i, prints = 0, prints_char = 0;
-	int flags, width, precision, size, buff_ind = 0;
-	char buffer[BUFF_SIZE];
+va_list args;
+int i = 0, char_printers = 0;
 
-	if (format == NULL)
-		return (-1);
-
-	va_start(lists, format);
-
-	for (i = 0; format && format[i] != '\0'; i++)
-	{
-		if (format[i] != '%')
-		{
-			buffer[buff_ind++] = format[i];
-			if (buff_ind == BUFF_SIZE)
-				prints_buffer(buffer, &buff_ind);
-			/* write (1, &format[i], 1); */
-			prints_char++;
-		}
-		else
-		{
-			prints_buffer(buffer, &buff_ind);
-			flags = gets_flags(format, &i);
-			width = gets_width(format, &i, lists);
-			precision = gets_precision(format, &i, lists);
-			size = gets_size(format, &i);
-			i++;
-			prints = handler_prints(format, &i, lists, buffer,
-					flags, width, precision, size);
-			if (prints == -1)
-				return (-1);
-			prints_char += prints;
-		}
-	}
-	prints_buffer(buffer, &buff_ind);
-
-	va_end(lists);
-
-	return (prints_char);
-}
-
-/**
- * prints_buffer - displays the buffer content if present.
- * @buffer: character array
- * @buff_ind: An index which will be added to char, reps the length.
- */
-
-void prints_buffer(char buffer[], int *buff_ind)
+va_start(args, format);
+while (format && format[i])
 {
-	if (*buff_ind > 0)
-		write(1, &buffer[0], *buff_ind);
-	*buff_ind = 0;
+if (format[i] != '%')
+{
+	char_printers += team_putchar(format[i]);
+}
+else if (format[i + 1])
+{
+i++;
+
+if (format[i] == 'c' || format[i] == 's')
+	char_printers += format[i] == 'c' ? team_putchar(va_arg(args, int)) :
+	printing_strings(va_arg(args, char *));
+else if (format[i] == 'd' || format[i] == 'i')
+	char_printers += printer_nums(va_arg(args, int));
+else if (format[i] == 'b')
+	char_printers += printing_binar((unsigned int)va_arg(args, int));
+else if (format[i] == 'r')
+	char_printers += printing_reverses(va_arg(args, char *));
+else if (format[i] == 'R')
+	char_printers += printing_rot13(va_arg(args, char *));
+else if (format[i] == 'o' || format[i] == 'u' ||
+	format[i] == 'x' || format[i] == 'X')
+	char_printers += printing_odh(format[i],
+	(unsigned int)va_arg(args, int));
+else if (format[i] == 'S')
+	char_printers += printing_S(va_arg(args, char *));
+else if (format[i] == 'p')
+	char_printers += printing_pointers
+	(va_arg(args, void *));
+else
+	char_printers += printing_unknown_letter(format[i]);
+	}
+	i++;
+	} va_end(args);
+return (char_printers);
 }
