@@ -40,3 +40,14 @@ int fetch_precision(const char *format, int *i, va_list list)
 	return (precision);
 }
 
+/**
+ * is_digit - digit declaration.
+ * @c: prints chars
+ *
+ * Return: 0
+ */
+
+int is_digit(char c)
+{
+	return (write(1, &c, 1));
+}

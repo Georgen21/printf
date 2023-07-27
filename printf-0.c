@@ -40,7 +40,7 @@ else if (format[i] == 'o' || format[i] == 'u' ||
 	char_printers += printing_odh(format[i],
 	(unsigned int)va_arg(args, int));
 else if (format[i] == 'S')
-	char_printers += printing_S(va_arg(args, char *));
+	char_printers += printing_str(va_arg(args, char *));
 else if (format[i] == 'p')
 	char_printers += printing_pointers
 	(va_arg(args, void *));
@@ -50,4 +50,37 @@ else
 	i++;
 	} va_end(args);
 return (char_printers);
+}
+
+/**
+ * printing_unknown_letter - print char
+ * @c: char to print
+ * Return: 1
+ */
+
+int printing_unknown_letter(char c)
+{
+	return (write(1, &c, 1));
+}
+
+/**
+ * printing_S - char to printed
+ * @c: char 
+ * Return: 1
+ */
+
+int printing_S(char c)
+{
+	return (write(1, &c, 1));
+}
+
+/**
+ * printing_str - print const char
+ * @format: string format
+ * Return: 1
+ */
+
+int printing_str(const char *format, ...)
+{
+	return (write(1, &format, 1));
 }

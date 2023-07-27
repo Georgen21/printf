@@ -1,11 +1,11 @@
 #include "main.h"
 /**
- * printing_S - prints a string with custom funtion
+ * printing_strings - prints a string with custom funtion
  *
  * @str: string to be formatted
  * Return: number of chars to be printed
  */
-int printing_S(char *str)
+int printing_strings(char *str)
 {
 	int a = 0, char_printers = 0;
 	char c;

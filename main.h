@@ -32,12 +32,13 @@ int printing_unknownr(char c);
 int printing_odh(char c, unsigned int num);
 int deci_to_octal(unsigned int num);
 int deci_to_hexxa(char c, unsigned int num);
-int printing_S(char *);
+int printing_S(char c);
 int printing_reverses(char *s);
 int printing_rot13(char *c);
 int printing_pointers(void *p);
 int team_puts(char *str);
 int fetch_flag(const char *format, int *i);
-
+int is_digit(char c);
+int printing_str(const char *format, ...);
 
 #endif

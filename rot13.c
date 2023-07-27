@@ -9,7 +9,7 @@
 
 int printing_rot13(char *s)
 {
-	char nor[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+	char tor[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
 		      'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
 		      'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
 		      'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
@@ -19,7 +19,7 @@ int printing_rot13(char *s)
 		      'm', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
 		      'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
 		      'M', ' '};
-	int count, lengthz, count2 = 0, char_print = 0;
+	int counterz, lengthz, counterz2 = 0, char_print = 0;
 	char before, *rot13d;
 
 	lengthz = 0;
@@ -37,7 +37,7 @@ int printing_rot13(char *s)
 		before = *(s + lengthz);
 		for (counterz = 0; counterz < 53; counterz++)
 		{
-			if (before == nor[counterz])
+			if (before == tor[counterz])
 			{
 				*(rot13d + lengthz) = rot[counterz];
 				counterz2 = counterz;
@@ -45,16 +45,14 @@ int printing_rot13(char *s)
 			}
 		}
 		if (*(rot13d + lengthz) != rot[counterz2])
-			*(rot13d + lengthz) = brfore;
+			*(rot13d + lengthz) = before;
 		if (*(rot13d + lengthz) == '\\')
 		{
-			*(rot13d + lengthz + 1) = *(s + lengthz + 1);
-			lengthz++;
-		}
+		*(rot13d + lengthz + 1) = *(s + lengthz + 1);
 		lengthz++;
-	}
-	*(rot13d + lengthz) = '\0';
+		} lengthz++;
+	} *(rot13d + lengthz) = '\0';
 	char_print = printing_strings(rot13d);
 	free(rot13d);
-	return (char_print);
+return (char_print);
 }
